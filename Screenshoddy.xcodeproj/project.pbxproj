@@ -10,6 +10,9 @@
 		3C1F40B4245DF11E006554AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40B3245DF11E006554AA /* AppDelegate.swift */; };
 		3C1F40B6245DF120006554AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1F40B5245DF120006554AA /* Assets.xcassets */; };
 		3C1F40B9245DF120006554AA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1F40B7245DF120006554AA /* MainMenu.xib */; };
+		3C1F40C3245E0A9E006554AA /* ScreenshotWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */; };
+		3C1F40C5245E227E006554AA /* ScreenshotWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */; };
+		3C1F40C7245E2327006554AA /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C6245E2327006554AA /* Globals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		3C1F40B8245DF120006554AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3C1F40BA245DF120006554AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C1F40BB245DF120006554AA /* Screenshoddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Screenshoddy.entitlements; sourceTree = "<group>"; };
+		3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotWindowController.swift; sourceTree = "<group>"; };
+		3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotWindow.swift; sourceTree = "<group>"; };
+		3C1F40C6245E2327006554AA /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,13 +57,24 @@
 		3C1F40B2245DF11E006554AA /* Screenshoddy */ = {
 			isa = PBXGroup;
 			children = (
+				3C1F40C1245E0A7D006554AA /* UI */,
 				3C1F40B3245DF11E006554AA /* AppDelegate.swift */,
 				3C1F40B5245DF120006554AA /* Assets.xcassets */,
+				3C1F40C6245E2327006554AA /* Globals.swift */,
 				3C1F40B7245DF120006554AA /* MainMenu.xib */,
 				3C1F40BA245DF120006554AA /* Info.plist */,
 				3C1F40BB245DF120006554AA /* Screenshoddy.entitlements */,
 			);
 			path = Screenshoddy;
+			sourceTree = "<group>";
+		};
+		3C1F40C1245E0A7D006554AA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */,
+				3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C1F40C7245E2327006554AA /* Globals.swift in Sources */,
+				3C1F40C3245E0A9E006554AA /* ScreenshotWindowController.swift in Sources */,
 				3C1F40B4245DF11E006554AA /* AppDelegate.swift in Sources */,
+				3C1F40C5245E227E006554AA /* ScreenshotWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

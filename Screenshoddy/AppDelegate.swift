@@ -11,11 +11,12 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    @IBOutlet weak var window: NSWindow!
-
+    let screenshotWC = ScreenshotWindowController()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        
+        screenshotWC.loadWindow()
+        screenshotWC.showWindow(self)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

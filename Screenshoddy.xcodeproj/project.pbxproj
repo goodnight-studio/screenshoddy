@@ -13,6 +13,8 @@
 		3C1F40C3245E0A9E006554AA /* ScreenshotWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */; };
 		3C1F40C5245E227E006554AA /* ScreenshotWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */; };
 		3C1F40C7245E2327006554AA /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C6245E2327006554AA /* Globals.swift */; };
+		3C2E7725245E8D8000220448 /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E7724245E8D8000220448 /* ScreenshotViewController.swift */; };
+		3C2E7727245E8DA500220448 /* ScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E7726245E8DA500220448 /* ScreenshotView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotWindowController.swift; sourceTree = "<group>"; };
 		3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotWindow.swift; sourceTree = "<group>"; };
 		3C1F40C6245E2327006554AA /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		3C2E7724245E8D8000220448 /* ScreenshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
+		3C2E7726245E8DA500220448 /* ScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 			children = (
 				3C1F40C2245E0A9E006554AA /* ScreenshotWindowController.swift */,
 				3C1F40C4245E227E006554AA /* ScreenshotWindow.swift */,
+				3C2E7724245E8D8000220448 /* ScreenshotViewController.swift */,
+				3C2E7726245E8DA500220448 /* ScreenshotView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -147,9 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C2E7727245E8DA500220448 /* ScreenshotView.swift in Sources */,
 				3C1F40C7245E2327006554AA /* Globals.swift in Sources */,
 				3C1F40C3245E0A9E006554AA /* ScreenshotWindowController.swift in Sources */,
 				3C1F40B4245DF11E006554AA /* AppDelegate.swift in Sources */,
+				3C2E7725245E8D8000220448 /* ScreenshotViewController.swift in Sources */,
 				3C1F40C5245E227E006554AA /* ScreenshotWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

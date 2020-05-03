@@ -46,6 +46,7 @@
 		3C1F40A7245DF11D006554AA = {
 			isa = PBXGroup;
 			children = (
+				3C58CAA0245F4F5A00AC3444 /* README.md */,
 				3C1F40B2245DF11E006554AA /* Screenshoddy */,
 				3C1F40B1245DF11E006554AA /* Products */,
 			);

@@ -9,6 +9,8 @@
 import Cocoa
 
 class ScreenshotWindow: NSWindow {
+    
+    let screenshotVC = ScreenshotViewController()
 
     static var defaultWidth: CGFloat {
         return 256
@@ -26,8 +28,24 @@ class ScreenshotWindow: NSWindow {
         
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
         
-        titleVisibility = .hidden
+//        title = "Screenshoddy"
+//        titleVisibility = .hidden
+        titlebarAppearsTransparent = true
         
+        contentViewController = screenshotVC
+        autorecalculatesKeyViewLoop = true
+        
+        minSize = NSSize(width: 250, height: 250)
+        delegate = self
+    }
+    
+}
+
+extension ScreenshotWindow: NSWindowDelegate {
+    
+    func windowDidBecomeMain(_ notification: Notification) {
+        
+        screenshotVC.checkPasteboardContents()
     }
     
 }

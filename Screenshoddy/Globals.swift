@@ -10,6 +10,10 @@ import Cocoa
 
 class Globals {
     
+    static var margin: CGFloat {
+        return 16
+    }
+    
     static var screenVisibleFrame: CGRect {
         get {
             if let screen = NSScreen.main {

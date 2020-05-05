@@ -8,6 +8,13 @@
 
 import Cocoa
 
-class NSToolbarItem: NSObject {
-
+extension NSToolbarItem.Identifier {
+    
+    static var generalPreferences: NSToolbarItem.Identifier {
+        return NSToolbarItem.Identifier(rawValue: "General")
+    }
+    
+    static var accountPreferences: NSToolbarItem.Identifier {
+        return NSToolbarItem.Identifier(rawValue: "Account")
+    }
 }

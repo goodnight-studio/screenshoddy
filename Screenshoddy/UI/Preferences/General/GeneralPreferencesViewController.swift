@@ -8,11 +8,13 @@
 
 import Cocoa
 
-class GeneralPreferenceViewController: NSViewController {
+class GeneralPreferencesViewController: NSViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
+    let generalPreferencesView = GeneralPreferencesView()
+    
+    override func loadView() {
+        
+        view = generalPreferencesView
     }
     
 }

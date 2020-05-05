@@ -28,8 +28,6 @@ class ScreenshotWindow: NSWindow {
         
         super.init(contentRect: contentRect, styleMask: style, backing: backingStoreType, defer: flag)
         
-//        title = "Screenshoddy"
-//        titleVisibility = .hidden
         titlebarAppearsTransparent = true
         
         contentViewController = screenshotVC

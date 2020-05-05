@@ -35,7 +35,6 @@ class ScreenshotWindow: NSWindow {
         isRestorable = true
         
         minSize = NSSize(width: 250, height: 250)
-        delegate = self
     }
     
 }

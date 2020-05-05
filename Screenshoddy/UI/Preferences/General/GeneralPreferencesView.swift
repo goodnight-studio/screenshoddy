@@ -10,10 +10,15 @@ import Cocoa
 
 class GeneralPreferencesView: NSView {
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        // Drawing code here.
+    override init(frame frameRect: NSRect) {
+        
+        super.init(frame: frameRect)
+        
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

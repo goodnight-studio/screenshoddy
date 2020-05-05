@@ -34,6 +34,7 @@ class ScreenshotWindow: NSWindow {
         
         contentViewController = screenshotVC
         autorecalculatesKeyViewLoop = true
+        isRestorable = true
         
         minSize = NSSize(width: 250, height: 250)
         delegate = self

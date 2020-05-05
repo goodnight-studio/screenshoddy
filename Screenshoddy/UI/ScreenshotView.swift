@@ -19,6 +19,9 @@ class ScreenshotView: NSView {
         
         super.init(frame: frameRect)
         
+        wantsLayer = true
+        layer?.backgroundColor = NSColor.underPageBackgroundColor.cgColor
+        
         addSubview(messageTextView)
         messageTextView.string = "No image in pasteboard"
         messageTextView.isEditable = false
@@ -29,7 +32,6 @@ class ScreenshotView: NSView {
         messageTextView.textColor = .secondaryLabelColor
         
         addSubview(imageView)
-//        imageView.image = NSImage(named: NSImage.Name("test"))
         imageView.allowsCutCopyPaste = true
         
         addSubview(controlView)

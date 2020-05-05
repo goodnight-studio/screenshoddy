@@ -27,6 +27,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
 
-
+    @IBAction func showMainWindow(_ sender: Any) {
+        screenshotWC.showWindow(self)
+    }
+    
 }
 

@@ -68,7 +68,6 @@
 				3C1F40B5245DF120006554AA /* Assets.xcassets */,
 				3C1F40C6245E2327006554AA /* Globals.swift */,
 				3C1F40B7245DF120006554AA /* MainMenu.xib */,
-				3C58CAA0245F4F5A00AC3444 /* README.md */,
 				3C1F40BA245DF120006554AA /* Info.plist */,
 				3C1F40BB245DF120006554AA /* Screenshoddy.entitlements */,
 			);
@@ -297,6 +296,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Screenshoddy/Screenshoddy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = C62KGZ35B8;
@@ -317,6 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Screenshoddy/Screenshoddy.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = C62KGZ35B8;

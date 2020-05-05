@@ -12,6 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     let screenshotWC = ScreenshotWindowController()
+    
+    var preferencesWC: PreferencesWindowController?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
@@ -31,5 +33,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         screenshotWC.showWindow(self)
     }
     
+    @IBAction func showPreferencesWindow(_ sender: Any) {
+        
+        if preferencesWC == nil {
+            preferencesWC = PreferencesWindowController()
+        }
+        
+        preferencesWC?.loadWindow()
+        preferencesWC?.showWindow(self)
+    }
 }
 

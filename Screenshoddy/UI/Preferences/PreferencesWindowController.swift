@@ -8,12 +8,89 @@
 
 import Cocoa
 
+fileprivate extension Selector {
+    static let didClickToolbarItem = #selector(PreferencesWindowController.didClickToolbarItem(_:))
+}
+
 class PreferencesWindowController: NSWindowController {
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
+    let toolbar = NSToolbar(identifier: NSToolbar.Identifier("PreferencesToolbar"))
+    var preferencesWindow: PreferencesWindow?
     
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    let toolbarPreferences: [NSToolbarItem.Identifier] = [
+        .generalPreferences,
+        .accountPreferences,
+    ]
+    
+    let viewControllers: [NSToolbarItem.Identifier: NSViewController] = [
+        .generalPreferences: GeneralPreferencesViewController(),
+        .accountPreferences: AccountPreferencesViewController(),
+    ]
+    
+    override func loadWindow() {
+        
+        let offsetX = round(Globals.screenVisibleFrame.width / 2) - round(PreferencesWindow.defaultWidth / 2)
+        let offsetY = round(Globals.screenVisibleFrame.height / 2) - round(PreferencesWindow.defaultHeight / 2)
+        
+        preferencesWindow = PreferencesWindow(
+            contentRect: NSRect(x: offsetX, y: offsetY, width: PreferencesWindow.defaultWidth, height: PreferencesWindow.defaultHeight),
+            styleMask: [.resizable, .closable, .miniaturizable, .titled ], backing: .buffered, defer: false)
+        
+        window = preferencesWindow!
+        
+        toolbar.delegate = self
+        toolbar.autosavesConfiguration = false
+        toolbar.autosavesConfiguration = false
+        toolbar.allowsUserCustomization = false
+        toolbar.displayMode = .iconAndLabel
+        toolbar.selectedItemIdentifier = .generalPreferences
+        
+        window?.showsToolbarButton = false
+        window?.toolbar = toolbar
+        window?.contentViewController = viewControllers[.generalPreferences]
+        window?.center()
+    }
+    
+    @objc func didClickToolbarItem(_ sender: NSToolbarItem) {
+        
+        window?.contentViewController = viewControllers[sender.itemIdentifier]
     }
 
+}
+
+extension PreferencesWindowController: NSToolbarDelegate {
+    
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        
+        let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
+        toolbarItem.action = .didClickToolbarItem
+        toolbarItem.target = self
+        toolbarItem.paletteLabel = toolbarItem.label
+        
+        if itemIdentifier == .generalPreferences {
+            
+            toolbarItem.label = "General"
+            toolbarItem.image = NSImage(named: NSImage.preferencesGeneralName)
+        }
+        
+        if itemIdentifier == .accountPreferences {
+            
+            toolbarItem.label = "Accounts"
+            toolbarItem.image = NSImage(named: NSImage.userAccountsName)
+        }
+     
+        return toolbarItem
+    }
+    
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return toolbarPreferences
+    }
+
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return toolbarPreferences
+    }
+
+    func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        return toolbarPreferences
+    }
 }

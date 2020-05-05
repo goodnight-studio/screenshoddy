@@ -8,11 +8,28 @@
 
 import Cocoa
 
+fileprivate extension Selector {
+    static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
+}
+
 class AccountPreferencesViewController: NSViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
+    let accountPreferencesView = AccountPreferencesView()
+    
+    override func loadView() {
+        
+        view = accountPreferencesView
+        
+        // TODO: This isn't right
+        NotificationCenter.default.addObserver(
+            self,
+            selector: .bucketNameButtonDidChange,
+            name: NSPopUpButton.willPopUpNotification,
+            object: nil)
+    }
+    
+    @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
+        print("Changed")
     }
     
 }

@@ -24,7 +24,7 @@ class PreferencesWindow: NSWindow {
         
         title = "Preferences"
 
-        autorecalculatesKeyViewLoop = true
+        autorecalculatesKeyViewLoop = false
         isRestorable = false
         
         minSize = NSSize(width: 512, height: 250)

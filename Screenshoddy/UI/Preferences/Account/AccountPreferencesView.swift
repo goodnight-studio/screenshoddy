@@ -65,8 +65,12 @@ class AccountPreferencesView: NSView {
         bucketNameLabel.isBezeled = false
         
         bucketNameButton.setTitle("Add S3 Credentials To Pick Bucket")
-        bucketNameButton.addItem(withTitle: "Test")
-//        bucketNameButton.isEnabled = false
+        bucketNameButton.addItem(withTitle: "")
+        bucketNameButton.isEnabled = false
+        
+        accessIdField.nextKeyView = secretKeyField
+        secretKeyField.nextKeyView = bucketNameButton
+        bucketNameButton.nextKeyView = accessIdField
     }
     
     override func layout() {

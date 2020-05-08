@@ -15,6 +15,7 @@
 		3C1F40C7245E2327006554AA /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40C6245E2327006554AA /* Globals.swift */; };
 		3C2E7725245E8D8000220448 /* ScreenshotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E7724245E8D8000220448 /* ScreenshotViewController.swift */; };
 		3C2E7727245E8DA500220448 /* ScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E7726245E8DA500220448 /* ScreenshotView.swift */; };
+		3C6272F22465005B000A5A3B /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6272F12465005B000A5A3B /* AppDefaults.swift */; };
 		3C8D1EDA24610C6500810693 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1ED924610C6500810693 /* PreferencesWindowController.swift */; };
 		3C8D1EDC24610CF800810693 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1EDB24610CF800810693 /* PreferencesWindow.swift */; };
 		3C8D1EE024610D2900810693 /* GeneralPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1EDF24610D2900810693 /* GeneralPreferencesViewController.swift */; };
@@ -37,6 +38,7 @@
 		3C2E7724245E8D8000220448 /* ScreenshotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotViewController.swift; sourceTree = "<group>"; };
 		3C2E7726245E8DA500220448 /* ScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotView.swift; sourceTree = "<group>"; };
 		3C58CAA0245F4F5A00AC3444 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3C6272F12465005B000A5A3B /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		3C8D1ED924610C6500810693 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		3C8D1EDB24610CF800810693 /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		3C8D1EDF24610D2900810693 /* GeneralPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				3C8D1EE724610DD700810693 /* Extensions */,
 				3C1F40C1245E0A7D006554AA /* UI */,
 				3C1F40B3245DF11E006554AA /* AppDelegate.swift */,
+				3C6272F02465004F000A5A3B /* Data */,
 				3C1F40B5245DF120006554AA /* Assets.xcassets */,
 				3C1F40C6245E2327006554AA /* Globals.swift */,
 				3C1F40B7245DF120006554AA /* MainMenu.xib */,
@@ -99,6 +102,14 @@
 				3C2E7726245E8DA500220448 /* ScreenshotView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		3C6272F02465004F000A5A3B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3C6272F12465005B000A5A3B /* AppDefaults.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		3C8D1ED824610C1600810693 /* Preferences */ = {
@@ -215,6 +226,7 @@
 				3C1F40C3245E0A9E006554AA /* ScreenshotWindowController.swift in Sources */,
 				3C8D1EE924610DFE00810693 /* NSToolbarItem.swift in Sources */,
 				3C1F40B4245DF11E006554AA /* AppDelegate.swift in Sources */,
+				3C6272F22465005B000A5A3B /* AppDefaults.swift in Sources */,
 				3C8D1EE024610D2900810693 /* GeneralPreferencesViewController.swift in Sources */,
 				3C8D1EDC24610CF800810693 /* PreferencesWindow.swift in Sources */,
 				3C8D1EDA24610C6500810693 /* PreferencesWindowController.swift in Sources */,

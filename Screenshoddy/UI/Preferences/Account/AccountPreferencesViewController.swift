@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
@@ -27,6 +28,8 @@ class AccountPreferencesViewController: NSViewController {
         
         accountPreferencesView.accessIdField.delegate = self
         accountPreferencesView.secretKeyField.delegate = self
+        
+        accountPreferencesView.getBucketsButton.action = #selector(AccountPreferencesViewController.getBucketsButtonClicked)
     }
     
     override func viewWillDisappear() {
@@ -43,6 +46,13 @@ class AccountPreferencesViewController: NSViewController {
     
     @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
         print("Changed")
+    }
+    
+    @objc func getBucketsButtonClicked(_ sender: NSButton) {
+        // Fetch s3 buckets that the user-supplied keys have access to.
+        let s3 = S3(accessKeyId: "Your-Access-Key", secretAccessKey: "Your-Secret-Key")
+        let listBucketRequest = s3.listBuckets()
+        print(listBucketRequest)
     }
     
 }

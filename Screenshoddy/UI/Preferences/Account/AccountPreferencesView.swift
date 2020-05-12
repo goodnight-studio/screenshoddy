@@ -16,6 +16,10 @@ class AccountPreferencesView: NSView {
     let secretKeyLabel = NSTextField()
     let secretKeyField = NSTextField()
     
+    
+    let getBucketsLabel = NSTextField()
+    let getBucketsButton = NSButton()
+    
     let bucketNameLabel = NSTextField()
     let bucketNameButton = NSPopUpButton()
     
@@ -26,6 +30,7 @@ class AccountPreferencesView: NSView {
         gridView = NSGridView(views: [
             [accessIdLabel, accessIdField],
             [secretKeyLabel, secretKeyField],
+            [getBucketsLabel, getBucketsButton],
             [bucketNameLabel, bucketNameButton]
         ])
         
@@ -57,6 +62,9 @@ class AccountPreferencesView: NSView {
         secretKeyLabel.isBezeled = false
         
         secretKeyField.placeholderString = "S3 Secret Key"
+        
+        getBucketsButton.title = "List Buckets"
+        getBucketsButton.setButtonType(NSButton.ButtonType.momentaryPushIn)
         
         bucketNameLabel.isEditable = false
         bucketNameLabel.isSelectable = false

@@ -11,6 +11,11 @@ import S3
 
 class AppS3 {
     
+    enum S3Error: Error {
+        case invalidBucket
+        case invalidImage
+    }
+    
     static var shared = AppS3()
     
     var s3 = S3(

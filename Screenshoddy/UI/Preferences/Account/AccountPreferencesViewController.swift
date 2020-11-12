@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
@@ -27,6 +28,8 @@ class AccountPreferencesViewController: NSViewController {
         
         accountPreferencesView.accessIdField.delegate = self
         accountPreferencesView.secretKeyField.delegate = self
+        
+        accountPreferencesView.getBucketsButton.action = #selector(AccountPreferencesViewController.getBucketsButtonClicked)
     }
     
     override func viewWillDisappear() {
@@ -43,6 +46,43 @@ class AccountPreferencesViewController: NSViewController {
     
     @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
         print("Changed")
+    }
+    
+    @objc func getBucketsButtonClicked(_ sender: NSButton) {
+        // Fetch s3 buckets that the user-supplied keys have access to.
+        let s3 = S3(
+            accessKeyId: accountPreferencesView.accessIdField.stringValue,
+            secretAccessKey: accountPreferencesView.secretKeyField.stringValue
+        )
+        let listBucketRequest = s3.listBuckets()
+        
+        listBucketRequest.whenSuccess { output in
+            
+            DispatchQueue.main.async {
+                self.accountPreferencesView.bucketNameButton.isEnabled = true
+            }
+            
+            output.buckets?.forEach({ bucket in
+                DispatchQueue.main.async {
+                    self.accountPreferencesView.bucketNameButton.addItem(withTitle: bucket.name ?? "Unnamed")
+                }
+                
+            })
+        }
+        
+        
+        listBucketRequest.whenFailure { [unowned self] error in
+
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.informativeText = "S3 Error: \(error.localizedDescription)"
+                alert.addButton(withTitle: "OK")
+                alert.beginSheetModal(for: view.window!)
+            }
+        }
+        
+        print(listBucketRequest)
     }
     
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,7 @@
 		3C8D1EE424610D9C00810693 /* AccountPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1EE324610D9C00810693 /* AccountPreferencesViewController.swift */; };
 		3C8D1EE624610DBF00810693 /* AccountPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1EE524610DBF00810693 /* AccountPreferencesView.swift */; };
 		3C8D1EE924610DFE00810693 /* NSToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8D1EE824610DFE00810693 /* NSToolbarItem.swift */; };
+		92A2A4CA246A77250093B994 /* S3 in Frameworks */ = {isa = PBXBuildFile; productRef = 92A2A4C9246A77250093B994 /* S3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A2A4CA246A77250093B994 /* S3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +167,9 @@
 			dependencies = (
 			);
 			name = Screenshoddy;
+			packageProductDependencies = (
+				92A2A4C9246A77250093B994 /* S3 */,
+			);
 			productName = Screenshoddy;
 			productReference = 3C1F40B0245DF11E006554AA /* Screenshoddy.app */;
 			productType = "com.apple.product-type.application";
@@ -193,6 +198,9 @@
 				Base,
 			);
 			mainGroup = 3C1F40A7245DF11D006554AA;
+			packageReferences = (
+				92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+			);
 			productRefGroup = 3C1F40B1245DF11E006554AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -371,7 +379,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = C62KGZ35B8;
+				DEVELOPMENT_TEAM = 2J7Z3PUK5Q;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Screenshoddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -393,7 +401,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = C62KGZ35B8;
+				DEVELOPMENT_TEAM = 2J7Z3PUK5Q;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Screenshoddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -429,6 +437,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swift-aws/aws-sdk-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92A2A4C9246A77250093B994 /* S3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = S3;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3C1F40A8245DF11D006554AA /* Project object */;
 }

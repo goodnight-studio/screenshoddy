@@ -16,8 +16,6 @@ class AccountPreferencesView: NSView {
     let secretKeyLabel = NSTextField()
     let secretKeyField = NSTextField()
     
-    
-    let getBucketsLabel = NSTextField()
     let getBucketsButton = NSButton()
     
     let bucketNameLabel = NSTextField()
@@ -30,8 +28,7 @@ class AccountPreferencesView: NSView {
         gridView = NSGridView(views: [
             [accessIdLabel, accessIdField],
             [secretKeyLabel, secretKeyField],
-            [getBucketsLabel, getBucketsButton],
-            [bucketNameLabel, bucketNameButton]
+            [bucketNameLabel, bucketNameButton, getBucketsButton]
         ])
         
         super.init(frame: frameRect)
@@ -63,8 +60,8 @@ class AccountPreferencesView: NSView {
         
         secretKeyField.placeholderString = "S3 Secret Key"
         
-        getBucketsButton.title = "List Buckets"
-        getBucketsButton.setButtonType(NSButton.ButtonType.momentaryPushIn)
+        getBucketsButton.title = "Refresh"
+        getBucketsButton.bezelStyle = .roundRect
         
         bucketNameLabel.isEditable = false
         bucketNameLabel.isSelectable = false
@@ -78,15 +75,14 @@ class AccountPreferencesView: NSView {
         
         accessIdField.nextKeyView = secretKeyField
         secretKeyField.nextKeyView = bucketNameButton
-        bucketNameButton.nextKeyView = accessIdField
+        bucketNameButton.nextKeyView = getBucketsButton
+        getBucketsButton.nextKeyView = accessIdField
     }
     
     override func layout() {
         
-//        accessIdLabel.sizeToFit()
-//        secretKeyLabel.sizeToFit()
         super.layout()
-//
+        
         gridView.frame = bounds.insetBy(dx: Globals.margin * 2, dy: Globals.margin * 2)
     }
     

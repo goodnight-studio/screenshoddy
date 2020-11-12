@@ -63,14 +63,14 @@ class AccountPreferencesViewController: NSViewController {
         }
         
         
-        listBucketRequest.whenFailure { [unowned self] error in
+        listBucketRequest.whenFailure { error in
 
             DispatchQueue.main.async {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
                 alert.informativeText = "S3 Error: \(error.localizedDescription)"
                 alert.addButton(withTitle: "OK")
-                alert.beginSheetModal(for: view.window!)
+                alert.runModal()
             }
         }
     }

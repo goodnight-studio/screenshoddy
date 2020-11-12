@@ -11,6 +11,8 @@ import S3
 
 class AppS3 {
     
+    typealias ImageUploadCompletion = ((_ imageUrl: URL?) -> Void)
+    
     enum S3Error: Error {
         case invalidBucket
         case invalidImage

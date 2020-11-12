@@ -39,8 +39,8 @@ class ScreenshotView: NSView {
         
         addSubview(uploadButton)
         uploadButton.title = "Upload"
-        uploadButton.bezelStyle = .texturedRounded
-        uploadButton.keyEquivalent = "return"
+        uploadButton.bezelStyle = .roundRect
+        uploadButton.keyEquivalent = "Return"
     }
     
     override func layout() {

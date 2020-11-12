@@ -14,6 +14,7 @@ public class AppDefaults {
     fileprivate struct Key {
         static let s3AccessId = "s3AccessId"
         static var s3Bucket = "s3Bucket"
+        static var s3Region = "s3Region"
     }
     
     static var shared: UserDefaults = {
@@ -43,6 +44,17 @@ public class AppDefaults {
         
         set {
             AppDefaults.shared.set(newValue, forKey: Key.s3Bucket)
+        }
+    }
+    
+    static var s3Region: String? {
+        
+        get {
+            AppDefaults.shared.string(forKey: Key.s3Region)
+        }
+        
+        set {
+            AppDefaults.shared.set(newValue, forKey: Key.s3Region)
         }
     }
     

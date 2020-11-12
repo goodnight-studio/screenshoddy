@@ -7,10 +7,10 @@
 //
 
 import Cocoa
-import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
+    static let handleGetBucketsButton = #selector(AccountPreferencesViewController.getBucketsButtonClicked(_:))
 }
 
 class AccountPreferencesViewController: NSViewController {
@@ -28,8 +28,11 @@ class AccountPreferencesViewController: NSViewController {
         accountPreferencesView.accessIdField.delegate = self
         accountPreferencesView.secretKeyField.delegate = self
         
-        accountPreferencesView.getBucketsButton.action = #selector(AccountPreferencesViewController.getBucketsButtonClicked)
         accountPreferencesView.getBucketsButton.target = self
+        accountPreferencesView.getBucketsButton.action = .handleGetBucketsButton
+        
+        accountPreferencesView.bucketNameButton.target = self
+        accountPreferencesView.bucketNameButton.action = .bucketNameButtonDidChange
     }
     
     override func viewWillDisappear() {
@@ -37,20 +40,18 @@ class AccountPreferencesViewController: NSViewController {
         // TODO: Validation and errors
         AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
         AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
-        AppDefaults.s3Bucket = accountPreferencesView.bucketNameButton.stringValue
     }
     
     @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
-        print("Changed")
+        
+        if let selectedItem = sender.selectedItem {
+            AppDefaults.s3Bucket = selectedItem.title
+        }
     }
     
     @objc func getBucketsButtonClicked(_ sender: NSButton) {
         // Fetch s3 buckets that the user-supplied keys have access to.
-        let s3 = S3(
-            accessKeyId: accountPreferencesView.accessIdField.stringValue,
-            secretAccessKey: accountPreferencesView.secretKeyField.stringValue
-        )
-        let listBucketRequest = s3.listBuckets()
+        let listBucketRequest = AppS3.shared.s3.listBuckets()
         
         listBucketRequest.whenSuccess { output in
             

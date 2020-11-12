@@ -70,8 +70,8 @@ class AccountPreferencesView: NSView {
         bucketNameLabel.isBezeled = false
         
         bucketNameButton.setTitle("Add S3 Credentials To Pick Bucket")
-        bucketNameButton.addItem(withTitle: "")
-        bucketNameButton.isEnabled = false
+        bucketNameButton.addItem(withTitle: AppDefaults.s3Bucket ?? "")
+        bucketNameButton.isEnabled = AppDefaults.s3Bucket != nil ? true : false
         
         accessIdField.nextKeyView = secretKeyField
         secretKeyField.nextKeyView = bucketNameButton
@@ -95,6 +95,10 @@ class AccountPreferencesView: NSView {
             strongSelf.bucketNameButton.isEnabled = true
             strongSelf.bucketNameButton.removeAllItems()
             strongSelf.bucketNameButton.addItems(withTitles: bucketNames)
+            
+            if let bucketName = AppDefaults.s3Bucket {
+                strongSelf.bucketNameButton.selectItem(withTitle: bucketName)
+            }
         }
     }
     

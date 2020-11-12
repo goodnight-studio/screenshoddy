@@ -11,7 +11,6 @@ import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
-    static let accessIdFieldDidChange = #selector(AccountPreferencesViewController.accessIdFieldDidChange(_:))
 }
 
 class AccountPreferencesViewController: NSViewController {
@@ -22,8 +21,8 @@ class AccountPreferencesViewController: NSViewController {
         
         view = accountPreferencesView
         
-        accountPreferencesView.accessIdField.stringValue = AppDefaults.s3AccessId ?? ""
-        accountPreferencesView.secretKeyField.stringValue = AppDefaults.s3SecretKey ?? ""
+        accountPreferencesView.accessIdField.stringValue = AppKeychain.s3AccessId ?? ""
+        accountPreferencesView.secretKeyField.stringValue = AppKeychain.s3SecretKey ?? ""
         accountPreferencesView.bucketNameButton.stringValue = AppDefaults.s3Bucket ?? ""
         
         accountPreferencesView.accessIdField.delegate = self
@@ -35,13 +34,9 @@ class AccountPreferencesViewController: NSViewController {
     override func viewWillDisappear() {
         
         // TODO: Validation and errors
-        AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
-        AppDefaults.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
+        AppKeychain.s3AccessId = accountPreferencesView.accessIdField.stringValue
+        AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
         AppDefaults.s3Bucket = accountPreferencesView.bucketNameButton.stringValue
-    }
-    
-    @objc func accessIdFieldDidChange(_ sender: NSTextField) {
-        print("here")
     }
     
     @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
@@ -81,8 +76,6 @@ class AccountPreferencesViewController: NSViewController {
                 alert.beginSheetModal(for: view.window!)
             }
         }
-        
-        print(listBucketRequest)
     }
     
 }
@@ -92,11 +85,13 @@ extension AccountPreferencesViewController: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {
         
         if (obj.object as? NSTextField) == accountPreferencesView.accessIdField {
-            // Access ID Field has lost focus, validate?
+            // Access ID Field has lost focus, validate and save
+            AppKeychain.s3AccessId = accountPreferencesView.accessIdField.stringValue
         }
         
         if (obj.object as? NSTextField) == accountPreferencesView.secretKeyField {
-            // Secret Key Field has lost focus, validate?
+            // Secret Key Field has lost focus, validate and save
+            AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
         }
     }
 }

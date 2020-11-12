@@ -86,6 +86,18 @@ class AccountPreferencesView: NSView {
         gridView.frame = bounds.insetBy(dx: Globals.margin * 2, dy: Globals.margin * 2)
     }
     
+    func updateWith(bucketNames: [String]) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let strongSelf = self else { return }
+            
+            strongSelf.bucketNameButton.isEnabled = true
+            strongSelf.bucketNameButton.removeAllItems()
+            strongSelf.bucketNameButton.addItems(withTitles: bucketNames)
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

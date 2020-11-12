@@ -16,29 +16,19 @@ public class AppKeychain {
     static var shared = AppKeychain()
     
     fileprivate struct Key {
-        static let s3AccessId = "s3AccessId"
         static var s3SecretKey = "s3SecretKey"
-    }
-    
-    static var s3AccessId: String? {
-        get {
-            return AppKeychain.shared.keychain[Key.s3AccessId]
-        }
-        
-        set {
-            guard let newValue = newValue else { return }
-            AppKeychain.shared.keychain[Key.s3AccessId] = newValue
-        }
     }
     
     static var s3SecretKey: String? {
         get {
-            return AppKeychain.shared.keychain[Key.s3SecretKey]
+            guard let s3AccessId = AppDefaults.s3AccessId else { return nil }
+            return AppKeychain.shared.keychain[s3AccessId]
         }
         
         set {
             guard let newValue = newValue else { return }
-            AppKeychain.shared.keychain[Key.s3SecretKey] = newValue
+            guard let s3AccessId = AppDefaults.s3AccessId else { return }
+            AppKeychain.shared.keychain[s3AccessId] = newValue
         }
     }
     

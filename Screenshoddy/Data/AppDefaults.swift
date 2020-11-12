@@ -12,6 +12,7 @@ import Foundation
 public class AppDefaults {
     
     fileprivate struct Key {
+        static let s3AccessId = "s3AccessId"
         static var s3Bucket = "s3Bucket"
     }
     
@@ -22,6 +23,17 @@ public class AppDefaults {
         print("UserDefaults initialized with suiteName:", suiteName)
         return UserDefaults.init(suiteName: suiteName)!
     }()
+    
+    static var s3AccessId: String? {
+        
+        get {
+            AppDefaults.shared.string(forKey: Key.s3AccessId)
+        }
+        
+        set {
+            AppDefaults.shared.set(newValue, forKey: Key.s3AccessId)
+        }
+    }
     
     static var s3Bucket: String? {
         

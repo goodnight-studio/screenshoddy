@@ -21,7 +21,7 @@ class AccountPreferencesViewController: NSViewController {
         
         view = accountPreferencesView
         
-        accountPreferencesView.accessIdField.stringValue = AppKeychain.s3AccessId ?? ""
+        accountPreferencesView.accessIdField.stringValue = AppDefaults.s3AccessId ?? ""
         accountPreferencesView.secretKeyField.stringValue = AppKeychain.s3SecretKey ?? ""
         accountPreferencesView.bucketNameButton.stringValue = AppDefaults.s3Bucket ?? ""
         
@@ -29,12 +29,13 @@ class AccountPreferencesViewController: NSViewController {
         accountPreferencesView.secretKeyField.delegate = self
         
         accountPreferencesView.getBucketsButton.action = #selector(AccountPreferencesViewController.getBucketsButtonClicked)
+        accountPreferencesView.getBucketsButton.target = self
     }
     
     override func viewWillDisappear() {
         
         // TODO: Validation and errors
-        AppKeychain.s3AccessId = accountPreferencesView.accessIdField.stringValue
+        AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
         AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
         AppDefaults.s3Bucket = accountPreferencesView.bucketNameButton.stringValue
     }
@@ -53,16 +54,11 @@ class AccountPreferencesViewController: NSViewController {
         
         listBucketRequest.whenSuccess { output in
             
-            DispatchQueue.main.async {
-                self.accountPreferencesView.bucketNameButton.isEnabled = true
-            }
+            guard let buckets = output.buckets else { return }
             
-            output.buckets?.forEach({ bucket in
-                DispatchQueue.main.async {
-                    self.accountPreferencesView.bucketNameButton.addItem(withTitle: bucket.name ?? "Unnamed")
-                }
-                
-            })
+            self.accountPreferencesView.updateWith(bucketNames: buckets.compactMap({ (bucket) -> String in
+                return bucket.name ?? "Unnamed"
+            }))
         }
         
         
@@ -86,7 +82,7 @@ extension AccountPreferencesViewController: NSTextFieldDelegate {
         
         if (obj.object as? NSTextField) == accountPreferencesView.accessIdField {
             // Access ID Field has lost focus, validate and save
-            AppKeychain.s3AccessId = accountPreferencesView.accessIdField.stringValue
+            AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
         }
         
         if (obj.object as? NSTextField) == accountPreferencesView.secretKeyField {

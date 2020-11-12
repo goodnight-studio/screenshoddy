@@ -25,7 +25,7 @@ class ScreenshotViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-//        checkPasteboardContents()
+
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [unowned self] (timer) in
             self.checkPasteboardContents()
         }

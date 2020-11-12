@@ -22,7 +22,8 @@ class AppS3 {
     
     var s3 = S3(
         accessKeyId: AppDefaults.s3AccessId,
-        secretAccessKey: AppKeychain.s3SecretKey
+        secretAccessKey: AppKeychain.s3SecretKey,
+        region: Region(rawValue: AppDefaults.s3Region ?? "us-west-1")
     )
     
     func handleCredentialChange() {

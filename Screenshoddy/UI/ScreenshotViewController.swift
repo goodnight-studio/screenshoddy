@@ -25,7 +25,7 @@ class ScreenshotViewController: NSViewController {
     }
     
     override func viewDidLoad() {
-//        checkPasteboardContents()
+
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [unowned self] (timer) in
             self.checkPasteboardContents()
         }
@@ -33,12 +33,27 @@ class ScreenshotViewController: NSViewController {
     
     @objc func didClickUpload(_ sender: NSButton) {
         
-        let alert = NSAlert()
-        alert.alertStyle = .warning
-        alert.messageText = "Did not upload"
-        alert.informativeText = "This is where upload code would go!"
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
+        guard let image = screenshotView.imageView.image else { return }
+        
+        DispatchQueue.main.async {
+            self.screenshotView.progressIndicator.startAnimation(self)
+        }
+        
+        do {
+            try AppS3.shared.upload(image: image, completion: { url in
+                guard let url = url else { return }
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(url.absoluteString, forType: .string)
+                NSPasteboard.general.setData(url.dataRepresentation, forType: .URL)
+                
+                DispatchQueue.main.async {
+                    self.screenshotView.progressIndicator.increment(by: 1)
+                    self.screenshotView.progressIndicator.stopAnimation(self)
+                }
+            })
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func checkPasteboardContents() {

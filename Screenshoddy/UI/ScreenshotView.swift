@@ -14,6 +14,7 @@ class ScreenshotView: NSView {
     let messageTextView = NSTextView()
     let imageView = NSImageView()
     let controlView = NSVisualEffectView()
+    let progressIndicator = NSProgressIndicator()
 
     override init(frame frameRect: NSRect) {
         
@@ -37,10 +38,14 @@ class ScreenshotView: NSView {
         addSubview(controlView)
         controlView.blendingMode = .withinWindow
         
+        addSubview(progressIndicator)
+        progressIndicator.isIndeterminate = true
+        progressIndicator.isDisplayedWhenStopped = false
+        
         addSubview(uploadButton)
         uploadButton.title = "Upload"
-        uploadButton.bezelStyle = .texturedRounded
-        uploadButton.keyEquivalent = "return"
+        uploadButton.bezelStyle = .roundRect
+        uploadButton.keyEquivalent = "Return"
     }
     
     override func layout() {
@@ -49,6 +54,11 @@ class ScreenshotView: NSView {
         uploadButton.frame.size.width += Globals.margin
         uploadButton.frame.origin.x = bounds.width - uploadButton.frame.size.width - Globals.margin
         uploadButton.frame.origin.y = Globals.margin
+        
+        progressIndicator.frame.size.width = 32
+        progressIndicator.frame.size.height = 8
+        progressIndicator.frame.origin.x = uploadButton.frame.origin.x - progressIndicator.frame.width - Globals.margin
+        progressIndicator.frame.origin.y = uploadButton.frame.origin.y + 6
         
         controlView.frame.size.width = bounds.width
         controlView.frame.size.height = uploadButton.frame.maxY + Globals.margin

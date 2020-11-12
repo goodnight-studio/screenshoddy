@@ -11,78 +11,84 @@ import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
-    static let accessIdFieldDidChange = #selector(AccountPreferencesViewController.accessIdFieldDidChange(_:))
+    static let regionButtonDidChange = #selector(AccountPreferencesViewController.regionButtonDidChange(_:))
+    static let handleGetBucketsButton = #selector(AccountPreferencesViewController.getBucketsButtonClicked(_:))
 }
 
 class AccountPreferencesViewController: NSViewController {
 
     let accountPreferencesView = AccountPreferencesView()
+    var buckets: [S3.Bucket]?
     
     override func loadView() {
         
         view = accountPreferencesView
         
         accountPreferencesView.accessIdField.stringValue = AppDefaults.s3AccessId ?? ""
-        accountPreferencesView.secretKeyField.stringValue = AppDefaults.s3SecretKey ?? ""
+        accountPreferencesView.secretKeyField.stringValue = AppKeychain.s3SecretKey ?? ""
         accountPreferencesView.bucketNameButton.stringValue = AppDefaults.s3Bucket ?? ""
         
         accountPreferencesView.accessIdField.delegate = self
         accountPreferencesView.secretKeyField.delegate = self
         
-        accountPreferencesView.getBucketsButton.action = #selector(AccountPreferencesViewController.getBucketsButtonClicked)
+        accountPreferencesView.getBucketsButton.target = self
+        accountPreferencesView.getBucketsButton.action = .handleGetBucketsButton
+        
+        accountPreferencesView.bucketNameButton.target = self
+        accountPreferencesView.bucketNameButton.action = .bucketNameButtonDidChange
+        
+        accountPreferencesView.regionButton.target = self
+        accountPreferencesView.regionButton.action = .regionButtonDidChange
     }
     
     override func viewWillDisappear() {
         
         // TODO: Validation and errors
         AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
-        AppDefaults.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
-        AppDefaults.s3Bucket = accountPreferencesView.bucketNameButton.stringValue
-    }
-    
-    @objc func accessIdFieldDidChange(_ sender: NSTextField) {
-        print("here")
+        AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
     }
     
     @objc func bucketNameButtonDidChange(_ sender: NSPopUpButton) {
-        print("Changed")
+        
+        if let selectedItem = sender.selectedItem {
+            AppDefaults.s3Bucket = selectedItem.title
+            AppS3.shared.handleCredentialChange()
+        }
+    }
+    
+    @objc func regionButtonDidChange(_ sender: NSPopUpButton) {
+        
+        if let selectedItem = sender.selectedItem {
+            AppDefaults.s3Region = selectedItem.title
+            AppS3.shared.handleCredentialChange()
+        }
     }
     
     @objc func getBucketsButtonClicked(_ sender: NSButton) {
         // Fetch s3 buckets that the user-supplied keys have access to.
-        let s3 = S3(
-            accessKeyId: accountPreferencesView.accessIdField.stringValue,
-            secretAccessKey: accountPreferencesView.secretKeyField.stringValue
-        )
-        let listBucketRequest = s3.listBuckets()
+        let listBucketRequest = AppS3.shared.s3.listBuckets()
         
         listBucketRequest.whenSuccess { output in
             
-            DispatchQueue.main.async {
-                self.accountPreferencesView.bucketNameButton.isEnabled = true
-            }
+            guard let buckets = output.buckets else { return }
+            self.buckets = buckets
             
-            output.buckets?.forEach({ bucket in
-                DispatchQueue.main.async {
-                    self.accountPreferencesView.bucketNameButton.addItem(withTitle: bucket.name ?? "Unnamed")
-                }
-                
-            })
+            self.accountPreferencesView.updateWith(bucketNames: buckets.compactMap({ (bucket) -> String in
+                return bucket.name ?? "Unnamed"
+            }))
         }
         
         
-        listBucketRequest.whenFailure { [unowned self] error in
+        listBucketRequest.whenFailure { error in
 
             DispatchQueue.main.async {
                 let alert = NSAlert()
                 alert.alertStyle = .critical
                 alert.informativeText = "S3 Error: \(error.localizedDescription)"
                 alert.addButton(withTitle: "OK")
-                alert.beginSheetModal(for: view.window!)
+                alert.runModal()
             }
         }
-        
-        print(listBucketRequest)
     }
     
 }
@@ -92,11 +98,13 @@ extension AccountPreferencesViewController: NSTextFieldDelegate {
     func controlTextDidEndEditing(_ obj: Notification) {
         
         if (obj.object as? NSTextField) == accountPreferencesView.accessIdField {
-            // Access ID Field has lost focus, validate?
+            // Access ID Field has lost focus, validate and save
+            AppDefaults.s3AccessId = accountPreferencesView.accessIdField.stringValue
         }
         
         if (obj.object as? NSTextField) == accountPreferencesView.secretKeyField {
-            // Secret Key Field has lost focus, validate?
+            // Secret Key Field has lost focus, validate and save
+            AppKeychain.s3SecretKey = accountPreferencesView.secretKeyField.stringValue
         }
     }
 }

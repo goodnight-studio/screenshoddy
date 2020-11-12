@@ -18,12 +18,12 @@ class PreferencesWindowController: NSWindowController {
     var preferencesWindow: PreferencesWindow?
     
     let toolbarPreferences: [NSToolbarItem.Identifier] = [
-        .generalPreferences,
+//        .generalPreferences,
         .accountPreferences,
     ]
     
     let viewControllers: [NSToolbarItem.Identifier: NSViewController] = [
-        .generalPreferences: GeneralPreferencesViewController(),
+//        .generalPreferences: GeneralPreferencesViewController(),
         .accountPreferences: AccountPreferencesViewController(),
     ]
     
@@ -40,14 +40,15 @@ class PreferencesWindowController: NSWindowController {
         
         toolbar.delegate = self
         toolbar.autosavesConfiguration = false
-        toolbar.autosavesConfiguration = false
         toolbar.allowsUserCustomization = false
         toolbar.displayMode = .iconAndLabel
-        toolbar.selectedItemIdentifier = .generalPreferences
+//        toolbar.selectedItemIdentifier = .generalPreferences
+        toolbar.selectedItemIdentifier = .accountPreferences
         
         window?.showsToolbarButton = false
         window?.toolbar = toolbar
-        window?.contentViewController = viewControllers[.generalPreferences]
+//        window?.contentViewController = viewControllers[.generalPreferences]
+        window?.contentViewController = viewControllers[.accountPreferences]
         window?.center()
     }
     
@@ -70,7 +71,7 @@ extension PreferencesWindowController: NSToolbarDelegate {
         if itemIdentifier == .generalPreferences {
             
             toolbarItem.label = "General"
-            toolbarItem.image = NSImage(named: NSImage.preferencesGeneralName)
+            toolbarItem.image = NSImage(named: NSImage.userAccountsName)
         }
         
         if itemIdentifier == .accountPreferences {

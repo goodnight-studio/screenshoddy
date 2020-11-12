@@ -7,15 +7,18 @@
 //
 
 import Cocoa
+import S3
 
 fileprivate extension Selector {
     static let bucketNameButtonDidChange = #selector(AccountPreferencesViewController.bucketNameButtonDidChange(_:))
+    static let regionButtonDidChange = #selector(AccountPreferencesViewController.regionButtonDidChange(_:))
     static let handleGetBucketsButton = #selector(AccountPreferencesViewController.getBucketsButtonClicked(_:))
 }
 
 class AccountPreferencesViewController: NSViewController {
 
     let accountPreferencesView = AccountPreferencesView()
+    var buckets: [S3.Bucket]?
     
     override func loadView() {
         
@@ -33,6 +36,9 @@ class AccountPreferencesViewController: NSViewController {
         
         accountPreferencesView.bucketNameButton.target = self
         accountPreferencesView.bucketNameButton.action = .bucketNameButtonDidChange
+        
+        accountPreferencesView.regionButton.target = self
+        accountPreferencesView.regionButton.action = .regionButtonDidChange
     }
     
     override func viewWillDisappear() {
@@ -46,6 +52,15 @@ class AccountPreferencesViewController: NSViewController {
         
         if let selectedItem = sender.selectedItem {
             AppDefaults.s3Bucket = selectedItem.title
+            AppS3.shared.handleCredentialChange()
+        }
+    }
+    
+    @objc func regionButtonDidChange(_ sender: NSPopUpButton) {
+        
+        if let selectedItem = sender.selectedItem {
+            AppDefaults.s3Region = selectedItem.title
+            AppS3.shared.handleCredentialChange()
         }
     }
     
@@ -56,6 +71,7 @@ class AccountPreferencesViewController: NSViewController {
         listBucketRequest.whenSuccess { output in
             
             guard let buckets = output.buckets else { return }
+            self.buckets = buckets
             
             self.accountPreferencesView.updateWith(bucketNames: buckets.compactMap({ (bucket) -> String in
                 return bucket.name ?? "Unnamed"

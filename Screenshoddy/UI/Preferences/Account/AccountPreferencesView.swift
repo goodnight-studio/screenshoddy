@@ -21,6 +21,9 @@ class AccountPreferencesView: NSView {
     let bucketNameLabel = NSTextField()
     let bucketNameButton = NSPopUpButton()
     
+    let regionLabel = NSTextField()
+    let regionButton = NSPopUpButton()
+    
     let gridView: NSGridView!
     
     override init(frame frameRect: NSRect) {
@@ -28,21 +31,30 @@ class AccountPreferencesView: NSView {
         gridView = NSGridView(views: [
             [accessIdLabel, accessIdField],
             [secretKeyLabel, secretKeyField],
-            [bucketNameLabel, bucketNameButton, getBucketsButton]
+            [bucketNameLabel, bucketNameButton, getBucketsButton],
+            [regionLabel, regionButton]
         ])
         
         super.init(frame: frameRect)
         
-        gridView.autoresizingMask = [.height, .width]
+        gridView.autoresizingMask = [.width, .height]
         
         addSubview(gridView)
         
         gridView.setContentHuggingPriority(NSLayoutConstraint.Priority(rawValue: 800), for: .vertical)
         gridView.setContentHuggingPriority(NSLayoutConstraint.Priority(rawValue: 800), for: .horizontal)
         
+        accessIdField.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        secretKeyField.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        bucketNameButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        regionButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
+        getBucketsButton.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        getBucketsButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         gridView.rowSpacing = Globals.margin
-        gridView.columnSpacing = Globals.margin / 2
         gridView.rowAlignment = .firstBaseline
+        gridView.columnSpacing = Globals.margin / 2
         
         accessIdLabel.isEditable = false
         accessIdLabel.isSelectable = false
@@ -72,6 +84,20 @@ class AccountPreferencesView: NSView {
         bucketNameButton.setTitle("Add S3 Credentials To Pick Bucket")
         bucketNameButton.addItem(withTitle: AppDefaults.s3Bucket ?? "")
         bucketNameButton.isEnabled = AppDefaults.s3Bucket != nil ? true : false
+        
+        regionLabel.isEditable = false
+        regionLabel.isSelectable = false
+        regionLabel.stringValue = "Region:"
+        regionLabel.backgroundColor = .clear
+        regionLabel.isBezeled = false
+        
+        regionButton.setTitle("S3 Region")
+        regionButton.addItems(withTitles: AppS3.shared.getRegions())
+        regionButton.isEnabled = true
+        
+        if let region = AppDefaults.s3Region {
+            regionButton.selectItem(withTitle: region)
+        }
         
         accessIdField.nextKeyView = secretKeyField
         secretKeyField.nextKeyView = bucketNameButton

@@ -51,6 +51,10 @@ class AccountPreferencesViewController: NSViewController {
     @objc func getBucketsButtonClicked(_ sender: NSButton) {
         // Fetch s3 buckets that the user-supplied keys have access to.
         let s3 = S3(accessKeyId: "Your-Access-Key", secretAccessKey: "Your-Secret-Key")
+        let s3 = S3(
+            accessKeyId: accountPreferencesView.accessIdField.stringValue,
+            secretAccessKey: accountPreferencesView.secretKeyField.stringValue
+        )
         let listBucketRequest = s3.listBuckets()
         print(listBucketRequest)
     }

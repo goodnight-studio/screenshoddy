@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C1DEA48255CD92700A19ED0 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 3C1DEA47255CD92700A19ED0 /* KeychainAccess */; };
 		3C1F40B4245DF11E006554AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1F40B3245DF11E006554AA /* AppDelegate.swift */; };
 		3C1F40B6245DF120006554AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C1F40B5245DF120006554AA /* Assets.xcassets */; };
 		3C1F40B9245DF120006554AA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C1F40B7245DF120006554AA /* MainMenu.xib */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C1DEA48255CD92700A19ED0 /* KeychainAccess in Frameworks */,
 				92A2A4CA246A77250093B994 /* S3 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +171,7 @@
 			name = Screenshoddy;
 			packageProductDependencies = (
 				92A2A4C9246A77250093B994 /* S3 */,
+				3C1DEA47255CD92700A19ED0 /* KeychainAccess */,
 			);
 			productName = Screenshoddy;
 			productReference = 3C1F40B0245DF11E006554AA /* Screenshoddy.app */;
@@ -200,6 +203,7 @@
 			mainGroup = 3C1F40A7245DF11D006554AA;
 			packageReferences = (
 				92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+				3C1DEA46255CD92700A19ED0 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 3C1F40B1245DF11E006554AA /* Products */;
 			projectDirPath = "";
@@ -379,7 +383,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2J7Z3PUK5Q;
+				DEVELOPMENT_TEAM = C62KGZ35B8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Screenshoddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -401,7 +405,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 2J7Z3PUK5Q;
+				DEVELOPMENT_TEAM = C62KGZ35B8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Screenshoddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -439,6 +443,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3C1DEA46255CD92700A19ED0 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.1;
+			};
+		};
 		92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/swift-aws/aws-sdk-swift.git";
@@ -450,6 +462,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3C1DEA47255CD92700A19ED0 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C1DEA46255CD92700A19ED0 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		92A2A4C9246A77250093B994 /* S3 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 92A2A4C8246A77250093B994 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;

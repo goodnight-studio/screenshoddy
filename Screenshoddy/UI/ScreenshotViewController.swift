@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import S3
 
 fileprivate extension Selector {
     static let didClickUpload = #selector(ScreenshotViewController.didClickUpload(_:))
@@ -50,9 +51,30 @@ class ScreenshotViewController: NSViewController {
                     self.screenshotView.progressIndicator.increment(by: 1)
                     self.screenshotView.progressIndicator.stopAnimation(self)
                 }
+                
+            }, apiErrorHandler: { error in
+                
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.alertStyle = .critical
+                    if let awsError = error as? AWSSDKSwiftCore.AWSResponseError {
+                        alert.informativeText = "S3 Error: \(awsError.localizedDescription)"
+                    } else {
+                        alert.informativeText = "S3 Error: \(error.localizedDescription)"
+                    }
+                    alert.addButton(withTitle: "OK")
+                    alert.runModal()
+                }
             })
         } catch {
-            print(error.localizedDescription)
+            
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.informativeText = "S3 Error: \(error.localizedDescription)"
+                alert.addButton(withTitle: "OK")
+                alert.runModal()
+            }
         }
     }
     

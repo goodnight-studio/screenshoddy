@@ -12,6 +12,7 @@ import S3
 class AppS3 {
     
     typealias ImageUploadCompletion = ((_ imageUrl: URL?) -> Void)
+    typealias ImageUploadErrorHandler = ((_ error: Error) -> Void)
     
     enum S3Error: Error {
         case invalidBucket
@@ -57,7 +58,7 @@ class AppS3 {
         return URL(string: str)
     }
     
-    func upload(image: NSImage, completion: @escaping ImageUploadCompletion) throws {
+    func upload(image: NSImage, completion: @escaping ImageUploadCompletion, apiErrorHandler: @escaping ImageUploadErrorHandler) throws {
         
         guard let bucket = AppDefaults.s3Bucket else { throw S3Error.invalidBucket }
         guard let imageData = image.png else { throw S3Error.invalidImage}
@@ -108,9 +109,7 @@ class AppS3 {
         put.whenFailure { error in
             print(error.localizedDescription)
             
-            if let awsError = error as? AWSSDKSwiftCore.AWSResponseError {
-                print(awsError)
-            }
+            apiErrorHandler(error)
         }
     }
     

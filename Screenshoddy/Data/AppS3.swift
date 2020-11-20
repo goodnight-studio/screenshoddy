@@ -74,7 +74,7 @@ class AppS3 {
             contentLanguage: nil,
             contentLength: nil,
             contentMD5: nil,
-            contentType: nil,
+            contentType: "image/png",
             expires: nil,
             grantFullControl: nil,
             grantRead: nil,

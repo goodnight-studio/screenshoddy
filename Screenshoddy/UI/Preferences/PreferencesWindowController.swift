@@ -77,7 +77,11 @@ extension PreferencesWindowController: NSToolbarDelegate {
         if itemIdentifier == .accountPreferences {
             
             toolbarItem.label = "Accounts"
-            toolbarItem.image = NSImage(named: NSImage.userAccountsName)
+            if #available(OSX 11.0, *) {
+                toolbarItem.image = NSImage(systemSymbolName: "at", accessibilityDescription: "Accounts")
+            } else {
+                toolbarItem.image = NSImage(named: NSImage.userAccountsName)
+            }
         }
      
         return toolbarItem

@@ -86,6 +86,9 @@ class ScreenshotViewController: NSViewController {
         for item in items {
             if let imageData = item.data(forType: NSPasteboard.PasteboardType.png) {
                 screenshotView.imageView.image = NSImage(data: imageData)
+                screenshotView.messageTextView.isHidden = true
+            } else {
+                screenshotView.messageTextView.isHidden = false
             }
         }
     }
